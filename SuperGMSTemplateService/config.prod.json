@@ -1,0 +1,10 @@
+{
+  "ServerConfig": {
+    "ConfigCenter": {
+      "ConfigType": 2,
+      "Ip": "192.168.0.4:2181"
+    }
+  }
+}
+
+// "ConfigType": 3,  表示配置类型为Zookeeper配置中心，下面Ip是ZK的地址+端口

@@ -1,0 +1,8 @@
+{
+  "ServerConfig": {
+    "ConfigCenter": {
+      "ConfigType": 3,
+      "Ip": "http://192.168.0.2/config/config.pre.json"
+    }
+  }
+}
