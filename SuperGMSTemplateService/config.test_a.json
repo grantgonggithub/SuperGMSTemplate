@@ -1,0 +1,10 @@
+{
+  "ServerConfig": {
+    "ConfigCenter": {
+      "ConfigType": 3,
+      "Ip": "http://192.168.0.2/config/config.test_a.json"
+    }
+  }
+}
+
+// "ConfigType": 3,  表示配置类型为url接口配置中心，这个接口或者文件需要返回完整的服务配置（集群种的机器指向一个接口或者文件）

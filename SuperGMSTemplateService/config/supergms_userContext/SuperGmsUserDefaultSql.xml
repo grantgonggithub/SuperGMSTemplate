@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SqlCommand>
+	<GetUserLoginCount>
+		<![CDATA[ 
+		select  count(`UserId`) TotCount from `login_log` where `Login_Time`>@start and `Login_Time`<@end
+		]]>
+	</GetUserLoginCount>
+	<GetUserLoginLog>
+		<![CDATA[
+		select
+            `llog`.`id`             AS `id`,
+            `llog`.`UserId`         AS `UserId`,
+            `llog`.`Login_Time`     AS `LoginTime`,
+            `llog`.`Login_Ip`       AS `LoginIp`,
+            `llog`.`Client_Type`    AS `ClientType`,
+            `llog`.`Client_Version` AS `ClientVersion`,
+            `llog`.`Login_Device`   AS `LoginDevice`,
+            `llog`.`CreatedDate`    AS `CreatedDate`,
+            `llog`.`CreatedBy`      AS `CreatedBy`,
+            `uinfo`.`RealName`      AS `RealName`,
+            `uinfo`.`Sex`           AS `Sex`,
+            `uinfo`.`Birthday`      AS `Birthday`,
+            `ulogin`.`Email`        AS `Email`
+		from ((`login_log` `llog`
+			left join `userinfo` `uinfo`
+			  on (`llog`.`UserId` = `uinfo`.`UserId`))
+		   left join `userlogin` `ulogin`
+			 on (`uinfo`.`UserId` = `ulogin`.`UserId`))
+		]]>
+	</GetUserLoginLog>
+</SqlCommand>
+
+<!--
+要注意数据库里面的列不是大驼峰的格式，但是用工具生成实体时变成了大驼峰，这里用Dapper的sql也要将对应的字段列AS成对应的大驼峰格式，否则值对不上
+但是前端用SearchParameters传Filed值时完全按照接口定义的大驼峰格式，框架会自动转成数据库表字段实际的格式（这个时候需要在AppInitlize里面初始化DbColumnMaps.InitDbContextFiledMaps<supergms_userContext>()）
+-->
